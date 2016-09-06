@@ -8,6 +8,8 @@ public class gravObject : MonoBehaviour {
 	private Rigidbody2D myBody{ get; set;}
 	public static readonly float G = 4; 
 	public Vector2 initialVelocity;
+	//public bool autoLock;
+	//private bool locked=false;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,10 @@ public class gravObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		evalAndApplyGravity ();
+	}
+
+	private Collider2D[] evalAndApplyGravity(){
 		float x= gameObject.transform.position.x;
 		float y = gameObject.transform.position.y;
 		Collider2D[] allInRange= Physics2D.OverlapCircleAll (new Vector2(x,y), gravCutoff);
@@ -47,5 +53,6 @@ public class gravObject : MonoBehaviour {
 			}
 		}
 		myBody.AddForce (totalForce);
-	}
+		return allInRange;
+	}		
 }
