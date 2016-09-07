@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class gravObject : MonoBehaviour {
 
 	public bool immobile;
 	public float gravCutoff;
 	private Rigidbody2D myBody{ get; set;}
-	public static readonly float G = 4; 
+	public static readonly float G = 7; 
 	public Vector2 initialVelocity;
 	//public bool autoLock;
 	//private bool locked=false;
+
+	public void setInitalVelocity(Vector2 vel){
+		initialVelocity=vel;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +40,7 @@ public class gravObject : MonoBehaviour {
 		Collider2D[] allInRange= Physics2D.OverlapCircleAll (new Vector2(x,y), gravCutoff);
 		Vector2 totalForce = new Vector2 (0, 0);
 		foreach (Collider2D col in allInRange) {
+			try{
 			//Ignore yourself. No self acting gravity
 			if (col.gameObject.GetInstanceID () != gameObject.GetInstanceID ()) {
 				gravObject otherGrav = col.gameObject.GetComponent<gravObject> ();
@@ -50,6 +56,9 @@ public class gravObject : MonoBehaviour {
 					totalForce += gravMag * towards;
 					//Debug.Log (totalForce);
 				}
+			}
+			}catch(Exception e){
+				continue;
 			}
 		}
 		myBody.AddForce (totalForce);
