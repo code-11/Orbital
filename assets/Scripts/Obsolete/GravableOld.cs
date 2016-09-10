@@ -2,12 +2,12 @@
 using System.Collections;
 using System;
 
-public class gravObject : MonoBehaviour {
+public class GravableOld : MonoBehaviour {
 
 	public bool immobile;
 	public float gravCutoff;
 	private Rigidbody2D myBody{ get; set;}
-	public static readonly float G = 7; 
+	public static readonly float G = 9; 
 	public Vector2 initialVelocity;
 	//public bool autoLock;
 	//private bool locked=false;
@@ -30,8 +30,8 @@ public class gravObject : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		evalAndApplyGravity ();
+	void FixedUpdate () {
+		//evalAndApplyGravity ();
 	}
 
 	private Collider2D[] evalAndApplyGravity(){
@@ -43,14 +43,14 @@ public class gravObject : MonoBehaviour {
 			try{
 			//Ignore yourself. No self acting gravity
 			if (col.gameObject.GetInstanceID () != gameObject.GetInstanceID ()) {
-				gravObject otherGrav = col.gameObject.GetComponent<gravObject> ();
+				GravableOld otherGrav = col.gameObject.GetComponent<GravableOld> ();
 				Vector2 myPos = gameObject.transform.position;
 				Vector2 otherPos = col.gameObject.transform.position;
 				//TODO: replace with mask at some point
 				if (otherGrav != null) {
 					float otherMass = otherGrav.myBody.mass;
 					float myMass = myBody.mass;
-					Vector2 towards = (otherPos-myPos);
+					Vector2 towards = (myPos-otherPos);
 					float r3 = towards.sqrMagnitude * towards.magnitude;
 					float gravMag = (G * otherMass * myMass / r3);
 					totalForce += gravMag * towards;

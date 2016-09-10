@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class shatterable : MonoBehaviour {
+public class Shatterable : MonoBehaviour {
 	private Rigidbody2D myBody;
 	public int scale;
 	private GameObject planetPrefab;
+	private float velCutoff=8;
+	MasterGravity theGravity;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +17,7 @@ public class shatterable : MonoBehaviour {
 		} else {
 			Debug.LogError ("shatterable must have a RigidBody2D");
 		}
+		theGravity = FindObjectOfType<MasterGravity> ();
 
 	}
 	
@@ -44,12 +47,16 @@ public class shatterable : MonoBehaviour {
 				toShatter = gameObject;
 			}
 
-			if (toShatter != null) {
-				Debug.Log (normal);
-				GameObject shard1 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen1, Quaternion.identity);
-				GameObject shard2 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen2, Quaternion.identity);
-				shard1.GetComponent<gravObject>().setInitalVelocity(pen1+myVel);
-				shard2.GetComponent<gravObject>().setInitalVelocity(pen2+myVel);
+			//Only one object involved in the collision should evaluate this
+			if (toShatter != null && myVel.sqrMagnitude>velCutoff) {
+				Debug.Log (myVel.sqrMagnitude);
+				GameObject shard1 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen1/2, Quaternion.identity);
+				theGravity.addGrav (shard1.GetComponent<Gravable> ());
+				GameObject shard2 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen2/2, Quaternion.identity);
+				theGravity.addGrav (shard2.GetComponent<Gravable> ());
+				shard1.GetComponent<Gravable>().setInitalVelocity(pen1+myVel);
+				shard2.GetComponent<Gravable>().setInitalVelocity(pen2+myVel);
+				theGravity.removeGrav (gameObject.GetComponent<Gravable> ());
 				Destroy (gameObject);
 			}
 		}
