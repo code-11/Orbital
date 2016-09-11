@@ -18,7 +18,6 @@ public class MasterGravity : MonoBehaviour {
 	}
 
 	public void addGrav(Gravable newGrav){
-		allGravs.Add(newGrav);
 		Pair<Gravable,Gravable>[] toAdd = new Pair<Gravable, Gravable>[allGravs.Count];
 		for(int i=0; i<allGravs.Count; i+=1){
 			if (allGravs [i] == newGrav) {
@@ -26,6 +25,7 @@ public class MasterGravity : MonoBehaviour {
 			}
 				toAdd [i] = new Pair<Gravable,Gravable> (allGravs [i], newGrav);
 		}
+		allGravs.Add(newGrav);
 		gravCombos = Concat (gravCombos, toAdd);
 	}
 

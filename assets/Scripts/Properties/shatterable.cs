@@ -20,11 +20,6 @@ public class Shatterable : MonoBehaviour {
 		theGravity = FindObjectOfType<MasterGravity> ();
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (scale>1) {
 
@@ -49,7 +44,6 @@ public class Shatterable : MonoBehaviour {
 
 			//Only one object involved in the collision should evaluate this
 			if (toShatter != null && myVel.sqrMagnitude>velCutoff) {
-				Debug.Log (myVel.sqrMagnitude);
 				GameObject shard1 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen1/2, Quaternion.identity);
 				theGravity.addGrav (shard1.GetComponent<Gravable> ());
 				GameObject shard2 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen2/2, Quaternion.identity);
