@@ -27,9 +27,30 @@ public class MasterGravity : MonoBehaviour {
 		}
 		allGravs.Add(newGrav);
 		gravCombos = Concat (gravCombos, toAdd);
+//		printGravs ("Add");
+	}
+
+	public void printGravs(string forward){
+		string str2=forward+"[";
+		foreach (Gravable grav  in allGravs) {
+			str2+=grav.id+",";
+		}
+		str2+="]";
+		string str=" [";
+		foreach (Pair<Gravable,Gravable> curPair in gravCombos) {
+			str+=curPair.ToString ();
+		}
+		str+="]";
+		string str3 = "";
+		if (allGravs.Count > 2) {
+			str3 += (allGravs [0] == allGravs [2]).ToString();
+		}
+		Debug.Log (str2+" "+str3+" "+str);
 	}
 
 	public void removeGrav(Gravable toRemove){
+//		printGravs ("remove1");
+		allGravs.Remove(toRemove);
 		List<Pair<Gravable,Gravable>> reorg = new List<Pair<Gravable, Gravable>> (gravCombos);
 		foreach (var pair in reorg.ToList()) {
 			if ((pair.First == toRemove) || (pair.Second == toRemove)) {
@@ -37,6 +58,7 @@ public class MasterGravity : MonoBehaviour {
 			}
 		}
 		gravCombos=reorg.ToArray ();
+//		printGravs("remove2");
 	}
 
 	// Use this for initialization
@@ -69,8 +91,10 @@ public class MasterGravity : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
+//		printGravs ("fixed");
 		foreach (Pair<Gravable,Gravable> curPair in gravCombos) {
 			applyGravity (curPair.First, curPair.Second);
 		}
 	}
+
 }

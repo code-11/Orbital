@@ -7,6 +7,13 @@
 		First = first;
 		Second = second;
 	}
+	public override string ToString(){
+		try{
+			return "("+( First as Gravable).id+","+( Second as Gravable).id+")";
+		}catch{
+			return "";
+		}
+	}
 }
 
 public static class Pair
