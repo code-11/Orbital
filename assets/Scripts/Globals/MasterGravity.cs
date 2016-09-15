@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 
-public class MasterGravity : MonoBehaviour {
+public class MasterGravity : NetworkBehaviour {
 
 	private List<Gravable> allGravs= new List<Gravable>();
 	private static Pair<Gravable,Gravable>[] gravCombos;

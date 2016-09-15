@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Gravable : MonoBehaviour {
+public class Gravable : NetworkBehaviour {
 	public Vector2 initialVelocity;
 	private Rigidbody2D myBody{ get; set;}
 	public int id {get; set;}
