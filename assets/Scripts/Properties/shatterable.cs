@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class Shatterable : MonoBehaviour {
+public class Shatterable : NetworkBehaviour {
 	private Rigidbody2D myBody;
 	public int scale;
 	private GameObject planetPrefab;
@@ -18,6 +19,9 @@ public class Shatterable : MonoBehaviour {
 			Debug.LogError ("shatterable must have a RigidBody2D");
 		}
 		theGravity = FindObjectOfType<MasterGravity> ();
+		if (theGravity == null) {
+			Debug.Log ("COuldn't find");
+		}
 
 	}
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -45,6 +49,9 @@ public class Shatterable : MonoBehaviour {
 			//Only one object involved in the collision should evaluate this
 			if (toShatter != null && myVel.sqrMagnitude>velCutoff) {
 				GameObject shard1 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen1/2, Quaternion.identity);
+				if (theGravity == null) {
+					Debug.Log ("WAHT");
+				}
 				theGravity.addGrav (shard1.GetComponent<Gravable> ());
 				GameObject shard2 = (GameObject)Instantiate (planetPrefab, new Vector2 (pos.x, pos.y)+pen2/2, Quaternion.identity);
 				theGravity.addGrav (shard2.GetComponent<Gravable> ());
