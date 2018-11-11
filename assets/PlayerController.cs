@@ -21,9 +21,11 @@ public class PlayerController : NetworkBehaviour
 
 		transform.Translate(x, y, 0);
 
+		/*
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			CmdMakePlanet ();
 		}
+		*/
 	}
 	[Command]
 	public void CmdMakePlanet(){

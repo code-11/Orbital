@@ -61,8 +61,7 @@ public class MasterGravity : NetworkBehaviour {
 		gravCombos=reorg.ToArray ();
 //		printGravs("remove2");
 	}
-
-	// Use this for initialization
+		
 	void Start () {
 		Debug.Log ("Starting");
 		allGravs.AddRange( FindObjectsOfType<Gravable> ());
@@ -90,7 +89,7 @@ public class MasterGravity : NetworkBehaviour {
 		grav1.GetComponent<Rigidbody2D> ().AddForce (totalForce1);
 		grav2.GetComponent<Rigidbody2D> ().AddForce (totalForce2);
 	}
-	// Update is called once per frame
+		
 	void FixedUpdate () {
 //		printGravs ("fixed");
 		foreach (Pair<Gravable,Gravable> curPair in gravCombos) {
