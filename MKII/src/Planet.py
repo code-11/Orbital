@@ -11,4 +11,5 @@ class Planet (object):
         self.radius = radius
 
     def draw(self, surface):
-        pygame.draw.circle(surface, pygame.Color(0, 0, 255), self.pos, self.radius)
+        int_pos = (int(self.pos[0]), int(self.pos[1]))
+        pygame.draw.circle(surface, pygame.Color(0, 0, 255), int_pos, self.radius)
