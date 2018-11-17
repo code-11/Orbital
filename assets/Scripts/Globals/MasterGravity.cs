@@ -86,8 +86,12 @@ public class MasterGravity : NetworkBehaviour {
 		float gravMag = (G * otherMass * myMass / r3);
 		totalForce1 += gravMag * -towards;
 		totalForce2 += gravMag * towards;
-		grav1.GetComponent<Rigidbody2D> ().AddForce (totalForce1);
-		grav2.GetComponent<Rigidbody2D> ().AddForce (totalForce2);
+		if (grav1.isAffectedByOthers && grav2.affectsOthers){
+			grav1.GetComponent<Rigidbody2D> ().AddForce (totalForce1);
+		}
+		if (grav2.isAffectedByOthers && grav1.affectsOthers){
+			grav2.GetComponent<Rigidbody2D> ().AddForce (totalForce2);
+		}
 	}
 		
 	void FixedUpdate () {

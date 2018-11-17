@@ -4,6 +4,8 @@ using UnityEngine.Networking;
 
 public class Gravable : NetworkBehaviour {
 	public Vector2 initialVelocity;
+	public bool affectsOthers;
+	public bool isAffectedByOthers;
 	private Rigidbody2D myBody{ get; set;}
 	public int id {get; set;}
 
