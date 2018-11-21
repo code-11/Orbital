@@ -63,7 +63,7 @@ public class MasterGravity : NetworkBehaviour {
 	}
 		
 	void Start () {
-		Debug.Log ("Starting");
+		Debug.Log ("Starting Gravity");
 		allGravs.AddRange( FindObjectsOfType<Gravable> ());
 		gravCombos = (allGravs.Select((value, index) => new { value, index })
 			.SelectMany(x => allGravs.Skip(x.index + 1),

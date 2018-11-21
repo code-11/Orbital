@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
-
-using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerController : NetworkBehaviour
 {
 	private GameObject planetPrefab;
+	private OwnershipMaster ownership;
+
 	void Start(){
+		Debug.Log("Starting Player "+this);
+		ownership=GameObject.FindObjectOfType<OwnershipMaster>();
+
 		planetPrefab = Resources.Load ("Prefabs/planet") as GameObject;
+		GameObject startPlanet=GameObject.FindWithTag("StartPlanet");
+		ownership.setOwnership(startPlanet,this);
 	}
+
 	void Update()
 	{
 		if (!isLocalPlayer) {
