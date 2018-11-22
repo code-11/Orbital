@@ -7,6 +7,7 @@ public class PlayerController : NetworkBehaviour
 {
 	private GameObject planetPrefab;
 	private OwnershipMaster ownership;
+	private Color color;
 
 	void Start(){
 		Debug.Log("Starting Player "+this);
@@ -15,6 +16,17 @@ public class PlayerController : NetworkBehaviour
 		planetPrefab = Resources.Load ("Prefabs/planet") as GameObject;
 		GameObject startPlanet=GameObject.FindWithTag("StartPlanet");
 		ownership.setOwnership(startPlanet,this);
+		ownership.setOwnership(gameObject,this);
+
+		color=generateColor();
+	}
+
+	public static Color generateColor(){
+        return new Color(Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+	}
+
+	public Color getColor(){
+		return color;
 	}
 
 	void Update()
@@ -44,6 +56,6 @@ public class PlayerController : NetworkBehaviour
 	}
 	public override void OnStartLocalPlayer()
 	{
-		GetComponent<SpriteRenderer>().material.color = Color.blue;
+		//GetComponent<SpriteRenderer>().material.color = Color.blue;
 	}
 }
