@@ -16,11 +16,11 @@ public abstract class Building : Object {
 		new AdvancedLaunchFacilities(),
 		new OrbitalSheild(),
 		new AsteroidBoosterFactory()
-	}
+	};
 
 	public string toDisplayStringCached =""; 
 	public string ToString(){
-		if (!toDisplayStringCached.equals("")){
+		if (!toDisplayStringCached.Equals("")){
 			return toDisplayStringCached;
 		}else{
 			string crushed=this.GetType().Name;

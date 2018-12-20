@@ -1,13 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildMaster : MonoBehaviour {
 
-	BuildChain
+	Util.MultiMap<Building,Building> buildChain= new Util.MultiMap<Building,Building>();
 
 	//Given this set of buildings, what new buildings can be built?
-	public Set<Building> possibleNewBuildings(Set<Building>){
-
+	public HashSet<Building> possibleNewBuildings(HashSet<Building> currentBuildings){
+		return null;
 	}
 }
