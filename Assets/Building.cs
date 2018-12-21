@@ -6,6 +6,7 @@ public abstract class Building : Object {
 
 
 	public static List<Building> allBuildings= new List<Building>{
+		new BasicInfrastructure(),
 		new MiningNetwork(),
 		new SensorNetwork(),
 		new InitialLaunchFacilities(),
@@ -28,6 +29,7 @@ public abstract class Building : Object {
 		}
 	}
 
+	public class BasicInfrastructure : Building{}
 	public class MiningNetwork : Building{}
 	public class SensorNetwork : Building{}
 	public class InitialLaunchFacilities : Building{}
