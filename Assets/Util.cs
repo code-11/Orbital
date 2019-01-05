@@ -33,6 +33,15 @@ public class Util : Object {
 				return null;
 			}
 		}
+
+		public HashSet<K> Keys(){
+			HashSet<K> toReturn = new HashSet<K>();
+			foreach(K key in data.Keys){
+				toReturn.Add(key);
+			}
+			return toReturn;
+		}
+
 	}
 
 }
