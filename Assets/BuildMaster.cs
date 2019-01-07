@@ -3,12 +3,13 @@ using System.Collections.Generic;
 // using static Building;
 using UnityEngine;
 
-
-
-
 public class BuildMaster : MonoBehaviour {
 
 	private Util.MultiMap<Building,Building> buildChain= new Util.MultiMap<Building,Building>();
+
+	void Start(){
+		setupBuildChain();
+	}
 
 	private void setupBuildChain (){
 						//This VV building is allowed if you have this one VV
@@ -29,7 +30,7 @@ public class BuildMaster : MonoBehaviour {
 	}
 
 	//Given this set of buildings, what new buildings can be built?
-	public HashSet<Building> possibleNewBuildings(HashSet<Building> currentBuildings){
+	public HashSet<Building> possibleBuildings(HashSet<Building> currentBuildings){
 		HashSet<Building> toReturn= new HashSet<Building>();
 		foreach(Building possibleBuild in buildChain.Keys()){
 			HashSet<Building> needBuildings=buildChain.getVal(possibleBuild);

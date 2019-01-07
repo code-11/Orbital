@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class Util : Object {
+public class Util : object {
 
 	public static string[] splitCamelCase(string source) {
 	    return Regex.Split(source, @"(?<!^)(?=[A-Z])");
@@ -13,7 +13,22 @@ public class Util : Object {
 		return string.Join(" ", splitCamelCase(str));
 	}
 
-	public class MultiMap<K,V> : Object{
+	public static string hashSetToString <K> (HashSet<K> theSet){
+		string toReturn="";
+		toReturn +="{";
+		int i=0;
+		foreach(K obj in theSet){
+			toReturn += obj.ToString();
+			i+=1;
+			if(i<theSet.Count){
+				toReturn +=", ";
+			}
+		}
+		toReturn += "}";
+		return toReturn;
+	}
+
+	public class MultiMap<K,V> : object{
 		private Dictionary<K,HashSet<V>> data= new Dictionary<K,HashSet<V>>();
 
 		public void put(K key, V value){
@@ -39,6 +54,21 @@ public class Util : Object {
 			foreach(K key in data.Keys){
 				toReturn.Add(key);
 			}
+			return toReturn;
+		}
+
+		public override string ToString(){
+			string toReturn="{";
+			int i=0;
+			foreach(K key in data.Keys){
+				toReturn += key + " : "+hashSetToString(this.getVal(key));
+				i+=1;
+				if (i<data.Keys.Count){
+					toReturn += ", ";
+				}
+
+			}
+			toReturn += "}";
 			return toReturn;
 		}
 

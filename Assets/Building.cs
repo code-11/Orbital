@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Building : Object {
+public abstract class Building : object {
 
 
 	public static List<Building> allBuildings= new List<Building>{
@@ -19,8 +19,16 @@ public abstract class Building : Object {
 		new AsteroidBoosterFactory()
 	};
 
+	public override bool Equals(object other){
+		return this.ToString().Equals(((Building) other).ToString());
+	}
+
+	public override int GetHashCode(){
+		return this.ToString().GetHashCode();
+	}
+
 	public string toDisplayStringCached =""; 
-	public string ToString(){
+	public override string ToString(){
 		if (!toDisplayStringCached.Equals("")){
 			return toDisplayStringCached;
 		}else{

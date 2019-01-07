@@ -14,5 +14,15 @@ public class GUIController : MonoBehaviour {
 		GameObject me = gameObject;
 		master.setName(me.name);
 		master.centerOn(me);
+		evalPossibleBuildings();
+	}
+
+	void evalPossibleBuildings(){
+		Buildable buildable= gameObject.GetComponent<Buildable>();
+		if (buildable!=null){
+			master.fillBuildSlots(buildable.possibleBuildings());
+		}else{
+			Debug.Log(gameObject.name+" is not buildable");
+		}
 	}
 }
